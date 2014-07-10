@@ -1,8 +1,7 @@
 //
 //  AboutScene.cpp
-//  ccs2dx_v3tutorial001
 //
-//  Created by noguchika on 2014/02/21.
+//  Created by kaznog on 2014/02/21.
 //
 //
 

@@ -134,8 +134,8 @@ void HelloWorld::initHUD()
     /* Read a ccbi file. */
     auto node = ccbReader->readNodeGraphFromFile(S_CCB_HUD, this);
     ccbReader->release();
-    this->_scoreLabel = (LabelBMFont*)node->getChildByTag(SCORE_LABEL_TAG);
-    this->_timeLabel  = (LabelBMFont*)node->getChildByTag(TIME_LABEL_TAG);
+    this->_scoreLabel = (Label*)node->getChildByTag(SCORE_LABEL_TAG);
+    this->_timeLabel  = (Label*)node->getChildByTag(TIME_LABEL_TAG);
     
     // bug in cocosbuilder
 //    this->_scoreLabel->setAnchorPoint(Vec2(1.0f, 0.5f));
@@ -145,21 +145,14 @@ void HelloWorld::initHUD()
     
     // update with score
     this->_scoreLabel->setString( std::to_string(this->_gameState->score) );
+    this->_scoreLabel->updateContent();
 }
 
 void HelloWorld::addScore(int value)
 {
     this->_gameState->score += value;
-    auto node = this->getChildByTag(Z_HUD);
-//    auto label = (LabelBMFont*)node->getChildByTag(SCORE_LABEL_TAG);
-//    label->setString(std::to_string(this->_gameState->score));
-    auto curLabel = this->_scoreLabel;
-    auto newLabel = LabelBMFont::create(std::to_string(this->_gameState->score), "Gas40.fnt");
-    newLabel->setPosition(curLabel->getPosition());
-    newLabel->setAnchorPoint(Vec2(1.0f, 0.5f));
-    this->_scoreLabel = newLabel;
-    node->addChild(newLabel);
-    node->removeChild(curLabel);
+    this->_scoreLabel->setString(std::to_string(this->_gameState->score));
+    this->_scoreLabel->updateContent();
     this->_scoreLabel->stopAllActions();
     
     auto scaleUpTo = ScaleTo::create(0.05f, 1.2f);
@@ -211,15 +204,8 @@ void HelloWorld::update(float delta)
         char timerstr[64];
         sprintf(timerstr, "%.1f", this->_gameState->time);
         // 何故かうまく動かない
-        // this->_timeLabel->setString(timerstr);
-        auto node = this->getChildByTag(Z_HUD);
-        auto curLabel = this->_timeLabel;
-        auto newLabel = LabelBMFont::create(timerstr, "Gas40.fnt");
-        newLabel->setPosition(curLabel->getPosition());
-        newLabel->setAnchorPoint(Vec2(0.0f, 0.5f));
-        this->_timeLabel = newLabel;
-        node->addChild(newLabel);
-        node->removeChild(curLabel);
+        this->_timeLabel->setString(StringUtils::format("%.1f", this->_gameState->time));
+        this->_timeLabel->updateContent();
     }
     
     // update state if necessary

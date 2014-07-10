@@ -1,8 +1,7 @@
 //
 //  TitleScene.h
-//  ccs2dx_v3tutorial001
 //
-//  Created by noguchika on 2014/02/20.
+//  Created by kaznog on 2014/02/20.
 //
 //
 
@@ -47,7 +46,7 @@ public:
 
     virtual void dispose(){}
     
-    LabelBMFont* _SpineNode;
+    Label* _SpineNode;
 };
 
 #endif /* defined(__ccs2dx_v3tutorial001__TitleScene__) */

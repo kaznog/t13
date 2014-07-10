@@ -84,8 +84,8 @@ private:
     ParallaxNode* _scrollNode;
     ParticleSystemQuad* _carSmoke;
     DrawNode* _terrain;
-    LabelBMFont* _scoreLabel;
-    LabelBMFont* _timeLabel;
+    Label* _scoreLabel;
+    Label* _timeLabel;
     
     /** Touch listener */
     EventListenerTouchOneByOne* _touchListener;

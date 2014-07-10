@@ -1,8 +1,7 @@
 //
 //  TitleScene.cpp
-//  ccs2dx_v3tutorial001
 //
-//  Created by noguchika on 2014/02/20.
+//  Created by kaznog on 2014/02/20.
 //
 //
 
@@ -58,13 +57,7 @@ bool TitleScene::init()
 void TitleScene::onEnterTransitionDidFinish()
 {
     log("TitleScene onEnterTransitionDidFinish");
-    auto titleNode = this->getChildByTag(TITLE_TAG);
-    auto newTitle = LabelBMFont::create("WATERMELON WITH ME", "konqa32.fnt");
-    newTitle->setPosition(titleNode->getPosition());
-    newTitle->setAnchorPoint(titleNode->getAnchorPoint());
-    this->removeChild(titleNode);
-    this->addChild(newTitle);
-    Node *SpineObject = newTitle->getChildByTag(8);
+    auto SpineObject = _SpineNode->getLetter(8);
     auto a_delay = DelayTime::create(6);
     auto a_tint = TintTo::create(0.5, 0, 255, 0);
     auto a_rotate = RotateBy::create(4, 360);
@@ -93,8 +86,8 @@ cocos2d::extension::Control::Handler TitleScene::onResolveCCBCCControlSelector(c
 bool TitleScene::onAssignCCBMemberVariable(cocos2d::Ref * pTarget, const char * pMemberVariableName, cocos2d::Node * pNode)
 {
     log("TitleScene AssignCCBMemberVariable");
-    // V3.1.1になって処理できなくなった。。。
-//    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "titleLabel", LabelBMFont *, _SpineNode);
+    // V3.1.1になってLabelBMFontではなく、Labelで処理するようです
+    CCB_MEMBERVARIABLEASSIGNER_GLUE(this, "titleLabel", Label *, _SpineNode);
     return true;
 }
 
